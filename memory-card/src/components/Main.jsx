@@ -3,10 +3,12 @@ import Items from './Items'
 
 function Main() {
 
-
   return (
-    <div className='main-ctnr bg-slate-500'>
+    <div className='main-ctnr bg-gray-100'>
       <Items />
+      <div>
+        {/* <span>`Score: ${score}`</span> */}
+      </div>
     </div>
   )
 }

@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Items() {
 
-  const languageObjects = [
+  let [score, setScore] = useState(0)
+  
+  const [items, setItems] = useState([
     {
-      text: 'JavaScript',
+      text: "JavaScript",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
       clicked: false
     },
     {
-      text: 'Python',
+      text: "Python",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       clicked: false
     },
@@ -19,12 +21,12 @@ function Items() {
       clicked: false
     },
     {
-      text: 'Kotlin',
+      text: "Kotlin",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
       clicked: false
     },
     {
-      text: 'Swift',
+      text: "Swift",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
       clicked: false
     },
@@ -33,12 +35,12 @@ function Items() {
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg",
       clicked: false
     },{
-      text: 'Rust',
+      text: "Rust",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg",
       clicked: false
     },
     {
-      text: 'GoLang',
+      text: "GoLang",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
       clicked: false
     },
@@ -47,12 +49,12 @@ function Items() {
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
       clicked: false
     },{
-      text: 'PHP',
+      text: "PHP",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
       clicked: false
     },
     {
-      text: 'TypeScript',
+      text: "TypeScript",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
       clicked: false
     },
@@ -61,18 +63,40 @@ function Items() {
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
       clicked: false
     }
-  ]
+  ])
 
-  const languageElements = languageObjects.map((language, idx) => {
+  const languageElements = items.map((item, idx) => {
     return (
-      <div key={idx} className='item'>
-        <p>{language.text}</p>
-        <img src={language.img} className='item-img' alt="" />
+      <div key={idx} className='item text-center pt-4 bg-gray-300'>
+        <p>{item.text}</p>
+        <img src={item.img} className='item-img mx-auto my-4' alt="" />
+        <button className='item-btn' onClick={(e) => shuffle(e)}>Select</button>
       </div>
     )
   })
 
-  console.log(languageElements)
+  const gameOver = () => {
+    alert(`Game Over. Your score was ${score}`)
+  }
+
+  const shuffle = (e) => {
+
+    const target = e.target.parentElement.children[0].textContent
+
+    for(let i = 0; i<items.length; i++) {
+      if(items[i].clicked === true) {
+        gameOver()
+      }
+      const item = items[i].text 
+      if(target === item) {
+        console.log(target, item, items[i].clicked)
+        setItems([...items], items[i].clicked = !items[i].clicked)
+        setScore(() => score += 1)
+      }   
+    }
+    console.log(items)
+  }
+
 
   return (
     <div className='item-ctnr'>
