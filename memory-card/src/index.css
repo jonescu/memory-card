@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100%;
+  overflow: scroll;
+}
+
+.app-ctnr {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header-ctnr {
+  color: white;
+}
+
+.main-ctnr {
+  height: 100vh;
+}
+
+.item-ctnr {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+}
+
+.item > img {
+  height: 75px;
+  width: 75px;
+}
+
+.footer-ctnr {
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-ctnr > svg {
+  height: 30px;
+  width: 30px;
+}
+
+.footer-ctnr > p {
+  vertical-align: middle;
+}

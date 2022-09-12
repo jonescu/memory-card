@@ -1,8 +1,13 @@
 import React from 'react'
+import Items from './Items'
 
 function Main() {
+
+
   return (
-    <div>Main</div>
+    <div className='main-ctnr bg-slate-500'>
+      <Items />
+    </div>
   )
 }
 
