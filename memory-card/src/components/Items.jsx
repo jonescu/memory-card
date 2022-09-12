@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 function Items() {
 
-  let [score, setScore] = useState(0)
+  // let [score, setScore] = useState(0)
   
   const [items, setItems] = useState([
     {
@@ -70,31 +70,39 @@ function Items() {
       <div key={idx} className='item text-center pt-4 bg-gray-300'>
         <p>{item.text}</p>
         <img src={item.img} className='item-img mx-auto my-4' alt="" />
-        <button className='item-btn' onClick={(e) => shuffle(e)}>Select</button>
+        <button className='item-btn' onClick={(e) => handleClick(e)}>Select</button>
       </div>
     )
   })
 
-  const gameOver = () => {
-    alert(`Game Over. Your score was ${score}`)
+  // const gameOver = () => {
+  //   setItems(items.map(item => {
+  //     return ({
+  //       text: `${item.text}`,
+  //       img: `${item.img}`,
+  //       clicked: false
+  //     })
+  //   }))
+  //   console.log(items)
+  // }
+
+  const shuffle = () => {
+    const itemsCopy = [...items]
+    setItems(itemsCopy.sort((a, b) => 0.5 - Math.random()))
+    console.log(items)
   }
 
-  const shuffle = (e) => {
-
+  const handleClick = (e) => {
     const target = e.target.parentElement.children[0].textContent
+    const itemsCopy = [...items]
 
-    for(let i = 0; i<items.length; i++) {
-      if(items[i].clicked === true) {
-        gameOver()
-      }
-      const item = items[i].text 
+    for(let i = 0; i<itemsCopy.length; i++) {
+      const item = itemsCopy[i].text 
       if(target === item) {
-        console.log(target, item, items[i].clicked)
-        setItems([...items], items[i].clicked = !items[i].clicked)
-        setScore(() => score += 1)
-      }   
+        setItems(itemsCopy, itemsCopy[i].clicked = true)
+        shuffle()
+      }
     }
-    console.log(items)
   }
 
 
