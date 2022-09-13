@@ -6,6 +6,7 @@ function Items() {
   let [highScore, setHighScore] = useState(0)
   const [gameOver, setGameOver] = useState(false)
   const [welcome, setWelcome] = useState(true)
+  const [win, setWin] = useState(false)
 
   // Initial state
   const [items, setItems] = useState([
@@ -81,6 +82,16 @@ function Items() {
     )
   })
 
+  // Check for win condition
+  const checkWin = () => {
+    console.log(score)
+    if(score > 10) {
+      handleGameOver()
+      setWin(() => true)
+      setHighScore(-1)
+    }
+  }
+
   // Handle game over
   const handleGameOver = () => {
     if(score > highScore) {
@@ -96,6 +107,7 @@ function Items() {
   const playAgain = () => {
     setGameOver(() => false)
     setScore(0)
+    setWin(() => false)
     const itemsCopy = [...items]
     const newItems = itemsCopy.map(item => {
       return {
@@ -115,6 +127,7 @@ function Items() {
       itemsCopy[index].clicked = 1
       setItems(itemsCopy.sort(() => Math.random() - 0.5))
       setScore(prevScore => prevScore +1)
+      checkWin()
       if(score === highScore) {
         setHighScore(prevScore => prevScore +1)
       }
@@ -136,7 +149,8 @@ function Items() {
           </div>}
         {languageElements}
         </div>
-        <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>
+        {win ? <span className='scoreboard'>{'Congratulations, you win!'}</span> : 
+        <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>}
         <span className='scoreboard high-score' >{`High score: ${highScore}`}</span>
         {gameOver && <button className='play-again-btn' onClick={playAgain}>Play Again</button>}
       </div>
