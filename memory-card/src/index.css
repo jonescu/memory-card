@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
+/* CSS Reset*/
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -25,7 +26,41 @@ body {
 }
 
 .main-ctnr {
-  height: 90vh;
+  height: 95vh;
+}
+
+.modal {
+  font-size: 1.2rem;
+  z-index: 10;
+  padding: 1rem;
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  color: white;
+  border-radius: 10px;
+}
+
+.modal-bg {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  height: 1350px;
+  width: 100vw;
+  background: rgba(0,0,0,0.4)
+}
+
+.modal > h4 {
+  text-align: center;
+  padding: 1rem;
+}
+
+.modal > button {
+  margin: 0 auto;
+  display: block;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background: green;
+  border-radius: 10px;
 }
 
 .item-ctnr {

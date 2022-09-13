@@ -4,9 +4,10 @@ function Items() {
 
   let [score, setScore] = useState(0)
   let [highScore, setHighScore] = useState(0)
-
   const [gameOver, setGameOver] = useState(false)
-  
+  const [welcome, setWelcome] = useState(true)
+
+  // Initial state
   const [items, setItems] = useState([
     {
       text: "JavaScript",
@@ -68,7 +69,7 @@ function Items() {
     }
   ])
 
-
+  // Generate cards from list of objects
   const languageElements = items.map((item, idx) => {
     return (
       <div key={idx} className='item text-center pt-4 bg-gray-300'>
@@ -80,6 +81,7 @@ function Items() {
     )
   })
 
+  // Handle game over
   const handleGameOver = () => {
     if(score > highScore) {
       setHighScore(() => score)
@@ -90,6 +92,7 @@ function Items() {
     } 
   }
 
+  // Handle click play again
   const playAgain = () => {
     setGameOver(() => false)
     setScore(0)
@@ -104,30 +107,39 @@ function Items() {
     setItems(() => newItems)
   }
     
-    const handleClick = (e) => {
-      const index = parseInt(e.target.parentElement.children[1].textContent)
-      const itemsCopy = [...items]
-      if(itemsCopy[index].clicked === 0) {
-        itemsCopy[index].clicked = 1
-        setItems(itemsCopy.sort(() => Math.random() - 0.5))
-        setScore(prevScore => prevScore +1)
-        if(score === highScore) {
-          setHighScore(prevScore => prevScore +1)
-        }
-      } else {
-        return handleGameOver()
+  // Handle clicks
+  const handleClick = (e) => {
+    const index = parseInt(e.target.parentElement.children[1].textContent)
+    const itemsCopy = [...items]
+    if(itemsCopy[index].clicked === 0) {
+      itemsCopy[index].clicked = 1
+      setItems(itemsCopy.sort(() => Math.random() - 0.5))
+      setScore(prevScore => prevScore +1)
+      if(score === highScore) {
+        setHighScore(prevScore => prevScore +1)
       }
+    } else {
+      return handleGameOver()
     }
+  }  
     
     return (
       <div>
-      <div className='item-ctnr'>
-      {languageElements}
+        <div className='item-ctnr'>
+          {welcome && 
+          <div className='modal-bg'>
+            <div className='modal bg-gray-400'>
+              <h4>Objective:</h4>
+              <p>Click any card, but only once. If you click the same card twice, you lose! Good luck.</p>
+              <button onClick={() => setWelcome(false)}>Begin</button>
+            </div>
+          </div>}
+        {languageElements}
+        </div>
+        <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>
+        <span className='scoreboard high-score' >{`High score: ${highScore}`}</span>
+        {gameOver && <button className='play-again-btn' onClick={playAgain}>Play Again</button>}
       </div>
-      <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>
-      <span className='scoreboard high-score' >{`High score: ${highScore}`}</span>
-      {gameOver && <button className='play-again-btn' onClick={playAgain}>Play Again</button>}
-    </div>
   )
 }
 
