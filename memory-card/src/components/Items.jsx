@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 function Items() {
 
   let [score, setScore] = useState(0)
+  let [highScore, setHighScore] = useState(0)
 
   const [gameOver, setGameOver] = useState(false)
   
@@ -72,6 +73,7 @@ function Items() {
     return (
       <div key={idx} className='item text-center pt-4 bg-gray-300'>
         <p>{item.text}</p>
+        <p style = {{ display: "none"}}>{idx}</p>
         <img src={item.img} className='item-img mx-auto my-4' alt="" />
         <button className='item-btn' disabled={gameOver ? true : false} onClick={(e) => handleClick(e)}>Select</button>
       </div>
@@ -79,10 +81,14 @@ function Items() {
   })
 
   const handleGameOver = () => {
-    setGameOver(() => true)
+    if(score > highScore) {
+      setHighScore(() => score)
+      setGameOver(() => true)
+    } else {
+      setHighScore(prevScore => prevScore)
+      setGameOver(() => true)
+    } 
   }
-
-  console.log(items)
 
   const playAgain = () => {
     setGameOver(() => false)
@@ -99,18 +105,17 @@ function Items() {
   }
     
     const handleClick = (e) => {
-      const target = e.target.parentElement.children[0].textContent
-      
+      const index = parseInt(e.target.parentElement.children[1].textContent)
       const itemsCopy = [...items]
-      
-      for(let i = 0; i<itemsCopy.length; i++) {
-        const item = itemsCopy[i].text 
-        if(target === item && itemsCopy[i].clicked === 0) {
-          setScore(prev => prev + 1)
-          return setItems([...itemsCopy].sort(() => Math.random() - 0.5), itemsCopy[i].clicked = items[i].clicked +1)
-        } else if (itemsCopy[i].clicked === 1){
-          handleGameOver()
+      if(itemsCopy[index].clicked === 0) {
+        itemsCopy[index].clicked = 1
+        setItems(itemsCopy.sort(() => Math.random() - 0.5))
+        setScore(prevScore => prevScore +1)
+        if(score === highScore) {
+          setHighScore(prevScore => prevScore +1)
         }
+      } else {
+        return handleGameOver()
       }
     }
     
@@ -119,12 +124,12 @@ function Items() {
       <div className='item-ctnr'>
       {languageElements}
       </div>
-      <span className='text-center'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>
+      <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>
+      <span className='scoreboard high-score' >{`High score: ${highScore}`}</span>
       {gameOver && <button className='play-again-btn' onClick={playAgain}>Play Again</button>}
     </div>
   )
 }
-  
 
 
 export default Items
