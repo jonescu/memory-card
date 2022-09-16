@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Confetti from 'react-confetti'
 
 function Items() {
 
@@ -149,7 +150,12 @@ function Items() {
           </div>}
         {languageElements}
         </div>
-        {win ? <span className='scoreboard'>{'Congratulations, you win!'}</span> : 
+        {win ? 
+        <>
+          <Confetti />
+          <span className='scoreboard'>{'Congratulations, you win!'}</span>
+        </>
+         : 
         <span className='scoreboard'>{gameOver ? `You scored: ${score}` : `Your score: ${score}`}</span>}
         <span className='scoreboard high-score' >{`High score: ${highScore}`}</span>
         {gameOver && <button className='play-again-btn' onClick={playAgain}>Play Again</button>}
