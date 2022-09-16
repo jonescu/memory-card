@@ -11,22 +11,17 @@
 }
 
 body {
-  min-height: 100%;
+  min-height: 100vh;
   overflow: scroll;
 }
 
 .app-ctnr {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .header-ctnr {
   color: white;
-}
-
-.main-ctnr {
-  height: 95vh;
 }
 
 .modal {
