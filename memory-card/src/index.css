@@ -127,3 +127,11 @@ body {
 .footer-ctnr > p {
   vertical-align: middle;
 }
+
+@media only screen and (max-width: 1240px) {
+  .item-ctnr {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
